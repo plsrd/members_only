@@ -20,3 +20,7 @@ block content
 
     button(type="submit") Sign Up
 
+  if errors
+    ul 
+      for error in errors 
+        li!= error.msg
