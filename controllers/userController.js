@@ -23,7 +23,7 @@ exports.signup_post = [
     }),
   body(
     'password',
-    'Password must be at least 8 character, with 1 lowercase & uppercase letter, as well as 1 number & symbol'
+    'Password must be at least 8 characters, with 1 lowercase & uppercase letter, as well as 1 number & symbol'
   )
     .escape()
     .trim()
@@ -32,8 +32,9 @@ exports.signup_post = [
     .escape()
     .trim()
     .custom(async (passwordConfirm, { req }) => {
-      if (req.body.password !== passwordConfirm)
+      if (req.body.password !== passwordConfirm) {
         throw new Error('Passwords must match');
+      }
     }),
   (req, res, next) => {
     const { firstname, lastname, email, password } = req.body;
@@ -57,7 +58,7 @@ exports.signup_post = [
           created_at: new Date(),
         });
 
-        user.save((err, savedUser) => {
+        user.save(err => {
           if (err) return next(err);
           res.redirect('/');
         });
