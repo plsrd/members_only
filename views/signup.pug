@@ -1,0 +1,22 @@
+extends layout
+
+block content 
+  form(method="POST" action='/signup')
+
+    label(for='firstname') First Name
+    input(type='text' name='firstname' placeholder='First Name' value=(user ? user.firstname : ''))
+
+    label(for='lastname') Last Name
+    input(type='text' name='lastname' placeholder='Last Name' value=(user ? user.lastname : ''))
+
+    label(for='email') Email
+    input(type='email' name='email' placeholder='soandso@email.io' value=(user ? user.email : ''))
+
+    label(for='password') Password
+    input(type='password' name='password' placeholder='Password' value=(user ? user.password : ''))
+
+    label(for='passwordConfirm') Confirm Password
+    input(type='password' name='passwordConfirm' placeholder='Confirm Password')
+
+    button(type="submit") Sign Up
+

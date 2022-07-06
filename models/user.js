@@ -26,7 +26,7 @@ UserSchema.virtual('url').get(function () {
 });
 
 UserSchema.virtual('age').get(function () {
-  return formatDistanceToNow(this.created_at);
+  return formatDistanceToNow(this.created_at, { addSuffix: true });
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -12,11 +12,11 @@ const MessageSchema = new Schema({
 });
 
 MessageSchema.virtual('url').get(function () {
-  return '/messages/' + this._id;
+  return '/message/' + this._id;
 });
 
 MessageSchema.virtual('age').get(function () {
-  return formatDistanceToNow(this.created_at);
+  return formatDistanceToNow(this.created_at, { addSuffix: true });
 });
 
 module.exports = mongoose.model('Message', MessageSchema);
