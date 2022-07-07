@@ -21,7 +21,7 @@ exports.signup_post = [
         throw new Error('Email already in use');
       }
     }),
-  body('password', 'Password is required').isLength(1),
+  body('password', 'Password is required').trim().escape().isStrongPassword(),
   body('passwordConfirm')
     .escape()
     .trim()
@@ -65,10 +65,14 @@ exports.login_get = (req, res, next) => {
   res.render('login');
 };
 
-exports.login_post = passport.authenticate('local', {
-  failureRedirect: '/login',
-  successRedirect: '/',
-});
+exports.login_post = [
+  body('email').trim().escape(),
+  body('password').trim().escape(),
+  passport.authenticate('local', {
+    failureRedirect: '/login-failure',
+    successRedirect: '/',
+  }),
+];
 
 exports.login_failure_get = (req, res, next) => {
   res.render('login', {
