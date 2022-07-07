@@ -3,3 +3,5 @@ extends layout
 block content
   if currentUser 
     h1 Welcome #{currentUser.firstname}
+    p Member since:  #{currentUser.age}
+    a(href='/messages/create') New Message

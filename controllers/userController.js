@@ -21,7 +21,13 @@ exports.signup_post = [
         throw new Error('Email already in use');
       }
     }),
-  body('password', 'Password is required').trim().escape().isStrongPassword(),
+  body(
+    'password',
+    'Password must be at least 8 characters and include 1 of each of the following: uppercase, lowercase, number, special character'
+  )
+    .trim()
+    .escape()
+    .isStrongPassword(),
   body('passwordConfirm')
     .escape()
     .trim()
@@ -47,6 +53,7 @@ exports.signup_post = [
     } else {
       bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) return next(err);
+
         Object.assign(user, {
           password: hashedPassword,
           created_at: new Date(),
@@ -83,7 +90,6 @@ exports.login_failure_get = (req, res, next) => {
 exports.logout_get = (req, res, next) => {
   req.logout(err => {
     if (err) return next(err);
-
     res.redirect('/');
   });
 };
