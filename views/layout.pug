@@ -6,10 +6,17 @@ html
   body
     nav
       ul 
-        li 
-          a(href='/signup') Sign Up
-        li 
-          a(href='/login') Login
-        li 
-          a(href='/') Home
+        if !currentUser
+          li 
+            a(href='/signup') Sign Up
+          li 
+            a(href='/login') Login
+          li 
+            a(href='/') Home
+        else 
+          li 
+            a(href='/') Home
+          li 
+            a(href='/logout') Log out
+
     block content

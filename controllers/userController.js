@@ -79,3 +79,11 @@ exports.login_failure_get = (req, res, next) => {
     error: 'Incorrect login',
   });
 };
+
+exports.logout_get = (req, res, next) => {
+  req.logout(err => {
+    if (err) return next(err);
+
+    res.redirect('/');
+  });
+};

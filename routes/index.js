@@ -18,4 +18,6 @@ router.post('/login', userController.login_post);
 
 router.get('/login-failure', userController.login_failure_get);
 
+router.get('/logout', userController.logout_get);
+
 module.exports = router;
