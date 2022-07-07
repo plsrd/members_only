@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+  form(method='POST' action='/login')
+
+    label(for='email') Email 
+    input(type='email' name='email' placeholder='soandso@email.io')
+
+    label(for='password') Password 
+    input(type='password' name='password')
+
+    button(type="submit") Log in
+
+    if error 
+      ul 
+        li= error

@@ -1,5 +1,5 @@
 const { body, validationResult } = require('express-validator');
-const async = require('async');
+const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
@@ -21,13 +21,7 @@ exports.signup_post = [
         throw new Error('Email already in use');
       }
     }),
-  body(
-    'password',
-    'Password must be at least 8 characters, with 1 lowercase & uppercase letter, as well as 1 number & symbol'
-  )
-    .escape()
-    .trim()
-    .isStrongPassword(),
+  body('password', 'Password is required').isLength(1),
   body('passwordConfirm')
     .escape()
     .trim()
@@ -66,3 +60,18 @@ exports.signup_post = [
     }
   },
 ];
+
+exports.login_get = (req, res, next) => {
+  res.render('login');
+};
+
+exports.login_post = passport.authenticate('local', {
+  failureRedirect: '/login',
+  successRedirect: '/',
+});
+
+exports.login_failure_get = (req, res, next) => {
+  res.render('login', {
+    error: 'Incorrect login',
+  });
+};
