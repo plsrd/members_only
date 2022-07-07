@@ -1,4 +1,16 @@
 extends layout 
 
 block content 
-  p create message
+  form(method='POST' action='/messages/create')
+    label(for='title') Title 
+    input(type='text', name='title') 
+
+    label(for='content') Content
+    textarea(data-quilljs name='content' type='hidden')
+
+
+    button(type="submit") Submit
+
+  
+
+  

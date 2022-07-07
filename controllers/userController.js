@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 exports.signup_get = (req, res, next) => {
-  res.render('signup');
+  res.render('signup-form');
 };
 
 exports.signup_post = [
@@ -49,7 +49,7 @@ exports.signup_post = [
     });
 
     if (!errors.isEmpty()) {
-      res.render('signup', { errors: errors.array(), user });
+      res.render('signup-form', { errors: errors.array(), user });
     } else {
       bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) return next(err);
@@ -69,7 +69,7 @@ exports.signup_post = [
 ];
 
 exports.login_get = (req, res, next) => {
-  res.render('login');
+  res.render('login-form');
 };
 
 exports.login_post = [
@@ -82,7 +82,7 @@ exports.login_post = [
 ];
 
 exports.login_failure_get = (req, res, next) => {
-  res.render('login', {
+  res.render('login-form', {
     error: 'Incorrect login',
   });
 };
