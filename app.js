@@ -38,6 +38,7 @@ app.use(
     store: sessionStore,
     cookie: {
       maxAge: 10000 * 30,
+      sameSite: 'strict',
     },
   })
 );

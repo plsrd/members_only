@@ -44,5 +44,16 @@ function quilljs_textarea(selector = null, options = null) {
   });
 }
 (function () {
-  quilljs_textarea();
+  quilljs_textarea(null, {
+    modules: {
+      toolbar: {
+        container: [
+          ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['blockquote', 'code-block'],
+        ],
+      },
+    },
+    theme: 'snow',
+  });
 })();
