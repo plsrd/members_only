@@ -30,4 +30,6 @@ router.get('/upgrade', indexController.user_upgrade_get);
 
 router.get('/admin', indexController.admin_get);
 
+router.post('/admin', indexController.admin_post);
+
 module.exports = router;

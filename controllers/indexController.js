@@ -138,7 +138,7 @@ exports.admin_post = [
       if (err) next(err);
       new Admin({
         password,
-      }).save(err => {
+      }).save((err, admin) => {
         if (err) next(err);
         res.redirect('/admin');
       });
