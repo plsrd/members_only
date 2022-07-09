@@ -1,11 +1,8 @@
 extends layout 
 
 block content
-  h1 Membership prompts
-  if prompts.length > 0  
-    for prompt in prompts 
-      div 
-        p= prompt.question 
-        p= prompt.answer
+  form(method='POST' action='/admin')
+    label(for='password') Enter new password 
+    input(type='password')
 
-  a(href='/prompt/create') Add prompt
+    button(type="submit") Update Password

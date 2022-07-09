@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Message = require('../models/message');
 
-const userController = require('../controllers/userController');
+const indexController = require('../controllers/indexController');
 
 router.get('/', function (req, res, next) {
   Message.find()
@@ -10,28 +10,24 @@ router.get('/', function (req, res, next) {
     .exec((err, messages) => {
       if (err) return next(err);
 
-      console.log(messages);
-
       res.render('index', { title: 'Express', messages });
     });
 });
 
-router.get('/signup', userController.signup_get);
+router.get('/signup', indexController.signup_get);
 
-router.post('/signup', userController.signup_post);
+router.post('/signup', indexController.signup_post);
 
-router.get('/login', userController.login_get);
+router.get('/login', indexController.login_get);
 
-router.post('/login', userController.login_post);
+router.post('/login', indexController.login_post);
 
-router.get('/login-failure', userController.login_failure_get);
+router.get('/login-failure', indexController.login_failure_get);
 
-router.get('/logout', userController.logout_get);
+router.get('/logout', indexController.logout_get);
 
-router.get('/admin', userController.admin_get);
+router.get('/upgrade', indexController.user_upgrade_get);
 
-router.get('/prompt/create', userController.prompt_create_get);
-
-router.post('/prompt/create', userController.prompt_create_post);
+router.get('/admin', indexController.admin_get);
 
 module.exports = router;

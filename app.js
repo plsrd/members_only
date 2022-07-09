@@ -10,7 +10,6 @@ require('dotenv').config();
 const passport = require('./lib/passport');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const messagesRouter = require('./routes/messages');
 
 mongoose.connect(process.env.MONGO_DB_URI, {
@@ -58,7 +57,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/messages', messagesRouter);
 
 // catch 404 and forward to error handler
