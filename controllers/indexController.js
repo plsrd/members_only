@@ -18,9 +18,7 @@ exports.signup_post = [
     .isEmail()
     .custom(async email => {
       const existingUser = await User.findOne({ email: email });
-      if (existingUser) {
-        throw new Error('Email already in use');
-      }
+      if (existingUser) throw new Error('Email already in use');
     }),
   body(
     'password',
@@ -117,14 +115,31 @@ exports.user_profile_get = (req, res, next) => {
 };
 
 exports.user_upgrade_get = (req, res, next) => {
-  res.render('upgrade_form');
+  res.render('upgrade-form');
 };
 
 exports.user_upgrade_post = [
   body('password')
     .trim()
     .escape()
-    .custom(async password => {}),
+    .isLength(1)
+    .withMessage('Password is required')
+    .custom(async password => {
+      const match = await Admin.findOne().then(admin =>
+        bcrypt.compare(password, admin.password)
+      );
+
+      if (!match) throw new Error('Incorrect password');
+    }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render('upgrade-form', { errors: errors.array() });
+    }
+
+    res.redirect('/upgrade');
+  },
 ];
 
 exports.admin_get = (req, res, next) => {
@@ -136,9 +151,7 @@ exports.admin_post = [
   (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, password) => {
       if (err) next(err);
-      new Admin({
-        password,
-      }).save((err, admin) => {
+      Admin.findOneAndUpdate({}, { password }).exec(err => {
         if (err) next(err);
         res.redirect('/admin');
       });

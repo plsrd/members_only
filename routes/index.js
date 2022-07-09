@@ -28,6 +28,8 @@ router.get('/logout', indexController.logout_get);
 
 router.get('/upgrade', indexController.user_upgrade_get);
 
+router.post('/upgrade', indexController.user_upgrade_post);
+
 router.get('/admin', indexController.admin_get);
 
 router.post('/admin', indexController.admin_post);
