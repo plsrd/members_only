@@ -3,6 +3,6 @@ extends layout
 block content
   form(method='POST' action='/admin')
     label(for='password') Enter new password 
-    input(type='password')
+    input(type='password' name='password')
 
     button(type="submit") Update Password

@@ -1,8 +1,10 @@
 const { body, validationResult } = require('express-validator');
 const passport = require('passport');
+const async = require('async');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const Admin = require('../models/admin');
+const Message = require('../models/message');
 
 exports.signup_get = (req, res, next) => {
   res.render('signup-form');
@@ -133,12 +135,24 @@ exports.user_upgrade_post = [
     }),
   (req, res, next) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       res.render('upgrade-form', { errors: errors.array() });
+    } else {
+      async.parallel(
+        {
+          updatedUser: cb =>
+            User.findByIdAndUpdate(req.user._id, {
+              membership_status: 'member',
+            }).exec(cb),
+          messages: cb => Message.find().exec(cb),
+        },
+        (err, { updatedUser, messages }) => {
+          console.log('found');
+          if (err) return next(err);
+          res.render('index', { messages, msg: 'Membership upgraded' });
+        }
+      );
     }
-
-    res.redirect('/upgrade');
   },
 ];
 
@@ -151,8 +165,7 @@ exports.admin_post = [
   (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, password) => {
       if (err) next(err);
-      Admin.findOneAndUpdate({}, { password }).exec(err => {
-        if (err) next(err);
+      Admin.findOneAndUpdate({}, { password: password }).then(updatedAdmin => {
         res.redirect('/admin');
       });
     });
