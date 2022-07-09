@@ -31,7 +31,6 @@ exports.message_create_post = [
 
       message.save((err, newMessage) => {
         if (err) return next(err);
-        console.log(newMessage);
         res.redirect('/');
       });
     }

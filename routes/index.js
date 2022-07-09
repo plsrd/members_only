@@ -28,4 +28,10 @@ router.get('/login-failure', userController.login_failure_get);
 
 router.get('/logout', userController.logout_get);
 
+router.get('/admin', userController.admin_get);
+
+router.get('/prompt/create', userController.prompt_create_get);
+
+router.post('/prompt/create', userController.prompt_create_post);
+
 module.exports = router;

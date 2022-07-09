@@ -1,0 +1,11 @@
+extends layout 
+
+block content
+  h1 Membership prompts
+  if prompts.length > 0  
+    for prompt in prompts 
+      div 
+        p= prompt.question 
+        p= prompt.answer
+
+  a(href='/prompt/create') Add prompt

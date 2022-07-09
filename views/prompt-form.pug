@@ -1,0 +1,12 @@
+extends layout 
+
+block content 
+  form(method='post' action='/prompt/create')
+
+    label(for='question') Question 
+    input(type='text' name='question')
+
+    label(for='answer') Answer 
+    input(type='text' name='answer')
+
+    button(type="submit") Create Prompt

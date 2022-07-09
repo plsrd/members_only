@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const Prompt = require('../models/prompt');
 
 exports.signup_get = (req, res, next) => {
   res.render('signup-form');
@@ -77,8 +78,19 @@ exports.login_post = [
   body('password').trim().escape(),
   passport.authenticate('local', {
     failureRedirect: '/login-failure',
-    successRedirect: '/',
   }),
+  (req, res, next) => {
+    User.findById(req.user._id).exec((err, user) => {
+      if (err) next(err);
+      Object.assign(user, { logins: [...user.logins, new Date()] });
+
+      user.save((err, updatedUser) => {
+        if (err) next(err);
+        console.log(updatedUser);
+        res.redirect('/');
+      });
+    });
+  },
 ];
 
 exports.login_failure_get = (req, res, next) => {
@@ -93,3 +105,67 @@ exports.logout_get = (req, res, next) => {
     res.redirect('/');
   });
 };
+
+exports.user_profile_get = (req, res, next) => {
+  User.findById(req.user._id).exec((err, user) => {
+    if (err) next(err);
+
+    if (!user) res.redirect('/', { error: 'User profile not found.' });
+
+    res.render('profile', { user });
+  });
+};
+
+exports.user_upgrade_get = (req, res, next) => {
+  Prompt.find().exec((err, prompts) => {
+    if (err) next(err);
+    res.render('upgrade_form', { prompts });
+  });
+};
+
+exports.user_upgrade_post = [
+  body('question1')
+    .trim()
+    .escape()
+    .toLowerCase()
+    .custom(async question => {}),
+  body('question2').trim().escape().toLowerCase(),
+  body('question2').trim().escape().toLowerCase(),
+];
+
+exports.admin_get = (req, res, next) => {
+  Prompt.find().exec((err, prompts) => {
+    if (err) next(err);
+    res.render('admin', { prompts });
+  });
+};
+
+exports.prompt_create_get = (req, res, next) => {
+  res.render('prompt-form');
+};
+
+exports.prompt_create_post = [
+  body('question').trim().escape(),
+  body('answer').trim().escape().toLowerCase(),
+  (req, res, next) => {
+    const { question, answer } = req.body;
+
+    let prompt = new Prompt({
+      question,
+      answer,
+    });
+
+    prompt.save(err => {
+      if (err) next(err);
+      res.redirect('/admin');
+    });
+  },
+];
+
+// exports.user_profile_update_get = (req, res, next) => {
+//   res.render('profile-update-form');
+// };
+
+// exports.user_profile_update_post = (req, res, next) => {
+
+// }

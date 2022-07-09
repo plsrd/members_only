@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+  form(method='post' action='/users/upgrade')
+    for prompt in prompts   
+      div 
+        label(for='prompt._id') Question #{prompts.indexOf(prompt) + 1}
+        p=prompt.question
+        input(type='text' name='prompt._id') 
+
+    button(type="submit") Submit

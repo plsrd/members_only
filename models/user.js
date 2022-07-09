@@ -15,6 +15,7 @@ const UserSchema = new Schema({
     default: 'user',
   },
   created_at: { type: Date, required: true },
+  logins: Array,
 });
 
 UserSchema.virtual('fullname').get(function () {
