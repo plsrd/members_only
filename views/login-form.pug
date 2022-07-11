@@ -1,16 +1,24 @@
 extends layout 
 
 block content 
-  form(method='POST' action='/login')
+  div(class="card w-96 bg-neutral shadow-xl mx-auto mt-16 h-96")
+    div(class="card-body")
+      h2(class="card-title  text-primary mb-5") Log In
+      form(method='POST' action='/login' class="form-control flex flex-col h-full")
+        
+        label(for='email' class="label") 
+          if errors && errors.some(error => error.param == 'email')
+            span(class='label-text text-primary') Valid email is required
+        label(class="input-group mb-5")
+          span Email
+          input(type='email' name='email' placeholder='soandso@email.io' class="input w-full")
 
-    label(for='email') Email 
-    input(type='email' name='email' placeholder='soandso@email.io')
+        label(for='password' class="label")
+          if errors && errors.some(error => error.param == 'password')
+            span(class='label-text text-primary') Password is required
+        label(class="input-group")
+          span Password
+          input(type='password' name='password' class="input w-full")
 
-    label(for='password') Password 
-    input(type='password' name='password')
-
-    button(type="submit") Log in
-
-    if error 
-      ul 
-        li!= error
+        div(class="card-actions justify-end mt-auto")
+          button(type="submit" class="btn btn-secondary") Log in

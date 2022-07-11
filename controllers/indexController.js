@@ -74,8 +74,17 @@ exports.login_get = (req, res, next) => {
 };
 
 exports.login_post = [
-  body('email').trim().escape(),
-  body('password').trim().escape(),
+  body('email').trim().escape().isLength(1),
+  body('password').trim().escape().isLength(1),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render('login-form', { errors: errors.array() });
+    } else {
+      next();
+    }
+  },
   passport.authenticate('local', {
     failureRedirect: '/login-failure',
   }),
@@ -148,7 +157,7 @@ exports.user_upgrade_post = [
         },
         (err, { updatedUser, messages }) => {
           if (err) return next(err);
-          res.render('index', { messages, msg: 'Membership upgraded' });
+          res.render('index', { messages, alert: 'Membership upgraded' });
         }
       );
     }
