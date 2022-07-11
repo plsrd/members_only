@@ -3,39 +3,53 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/overrides.css')
     link(href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet")
   body
-    nav
-      ul 
-        if !currentUser
-          li 
-            a(href='/signup') Sign Up
-          li 
-            a(href='/login') Login
-          li 
-            a(href='/') Home
-        else 
-          li  Welcome #{currentUser.firstname}!
-          li 
-            a(href='/') Home
-          li 
-            a(href='/logout') Log out
+    div(class='body-wrapper')
+      nav(class='drawer w-80')
+        ul(class="menu p-4 overflow-y-auto w-80 bg-neutral text-base-content")
+          li(class=`${currentUser ? 'flex-row justify-between' : ''}`) 
+            a(href='/' class='h-full flex-0 btn btn-ghost btn-circle p-0 m-0')
+              svg(xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round")
+                path(stroke="none" d="M0 0h24v24H0z" fill="none")
+                polyline(points="5 12 3 12 12 3 21 12 19 12")
+                path(d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7")
+                path(d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6")
+            if currentUser 
+              a(href='' class='text-secondary') 
+                p #{currentUser.firstname.slice(0, 1).toUpperCase() + currentUser.lastname.slice(0, 1).toUpperCase()}
+                svg(xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round")
+                  path(stroke="none" d="M0 0h24v24H0z" fill="none")
+                  circle(cx="12" cy="12" r="9")
+                  circle(cx="12" cy="10" r="3")
+                  path(d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855")
+          div(class="divider")
 
-          li 
-            a(href='/messages/create') New Message
+          if !currentUser
+            li 
+              a(href='/signup') Sign Up
+            li 
+              a(href='/login') Login
+          
+          else
 
-          if currentUser.membership_status == 'admin'
+            if currentUser.membership_status == 'user'
+              li
+                a(href='/upgrade') Upgrade Membership
+
+            else
+              li 
+                a(href='/messages/create') New Message
+              
+              if currentUser.membership_status == 'admin'
+                li
+                  a(href='/admin') Admin Panel
+            div(class="divider")
+              
             li
-              a(href='/admin') Admin Panel
+              a(href='/logout') Logout
 
-          if currentUser.membership_status == 'user'
-          li
-            a(href='/upgrade') Upgrade Membership
-
-
-    block content
-
-  script(src="https://cdn.quilljs.com/1.3.6/quill.js")
-  script(src="/javascripts/quill-textarea.js")
+      block content
 
 

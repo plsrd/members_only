@@ -147,7 +147,6 @@ exports.user_upgrade_post = [
           messages: cb => Message.find().exec(cb),
         },
         (err, { updatedUser, messages }) => {
-          console.log('found');
           if (err) return next(err);
           res.render('index', { messages, msg: 'Membership upgraded' });
         }
