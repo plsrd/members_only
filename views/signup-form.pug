@@ -1,26 +1,30 @@
 extends layout
 
 block content 
-  form(method="POST" action='/signup')
+  div(class="card w-96 bg-neutral shadow-xl mx-auto my-auto")
+    div(class="card-body")
+      h2(class="card-title  text-primary mb-5") Sign Up
+      form(method="POST" action='/signup' class='form-control space-y-1')
+        
+        label(for='firstname' class='label text-sm') First Name
+        input(type='text' name='firstname' class="input input-bordered w-full max-w-xs" placeholder='First Name' value=(user ? user.firstname : ''))
 
-    label(for='firstname') First Name
-    input(type='text' name='firstname' placeholder='First Name' value=(user ? user.firstname : ''))
+        label(for='lastname' class='label text-sm') Last Name
+        input(type='text' name='lastname' class="input input-bordered w-full max-w-xs" placeholder='Last Name' value=(user ? user.lastname : ''))
 
-    label(for='lastname') Last Name
-    input(type='text' name='lastname' placeholder='Last Name' value=(user ? user.lastname : ''))
+        label(for='email' class='label text-sm') Email
+        input(type='email' name='email' class="input input-bordered w-full max-w-xs" placeholder='soandso@email.io' value=(user ? user.email : ''))
 
-    label(for='email') Email
-    input(type='email' name='email' placeholder='soandso@email.io' value=(user ? user.email : ''))
+        label(for='password' class='label text-sm') Password
+        input(type='password' name='password' class="input input-bordered w-full max-w-xs" placeholder='Password' value=(user ? user.password : ''))
 
-    label(for='password') Password
-    input(type='password' name='password' placeholder='Password' value=(user ? user.password : ''))
+        label(for='passwordConfirm' class='label text-sm') Confirm Password
+        input(type='password' name='passwordConfirm' class="input input-bordered w-full max-w-xs" placeholder='Confirm Password')
 
-    label(for='passwordConfirm') Confirm Password
-    input(type='password' name='passwordConfirm' placeholder='Confirm Password')
+        div(class="card-actions justify-end")
+          button(type="submit" class="btn btn-secondary mt-10") Sign Up
 
-    button(type="submit") Sign Up
-
-  if errors
-    ul 
-      for error in errors 
-        li!= error.msg
+      if errors
+        ul 
+          for error in errors 
+            li!= error.msg
