@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo');
 require('dotenv').config();
 const passport = require('./lib/passport');
 const compression = require('compression');
+const helmet = require('helmet');
 
 const indexRouter = require('./routes/index');
 const messagesRouter = require('./routes/messages');
@@ -43,6 +44,7 @@ app.use(
   })
 );
 
+app.use(helmet());
 app.use(compression());
 
 app.use(passport.initialize());
