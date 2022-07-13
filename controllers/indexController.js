@@ -11,7 +11,7 @@ exports.index_get = (req, res, next) => {
     .populate('user')
     .exec((err, messages) => {
       if (err) return next(err);
-      res.render('index', { title: 'Express', messages });
+      res.render('index', { title: 'Members Only', messages });
     });
 };
 
