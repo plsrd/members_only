@@ -22,10 +22,10 @@ block content
 
         label(for='email' class="label") 
           if errors && errors.some(error => error.param == 'email')
-            span(class='label-text text-primary') Valid email is required
+            span(class='label-text text-primary') #{errors.find(error => error.param == 'email').msg }
         label(class="input-group mb-5")
           span(class='whitespace-nowrap') Email
-          input(type='email' name='email' class="input w-full" value=(user ? user.lastname : ''))
+          input(type='email' name='email' class="input w-full" value=(user ? user.email : ''))
 
         label(for='password' class="label") 
           if errors && errors.some(error => error.param == 'password')
@@ -38,7 +38,7 @@ block content
           if errors && errors.some(error => error.param == 'passwordConfirm')
             span(class='label-text text-primary') #{errors.find(error => error.param == 'passwordConfirm').msg }
         label(class="input-group mb-5")
-          span(class='whitespace-nowrap') Password
+          span(class='whitespace-nowrap') Confirm Password
           input(type='password' name='passwordConfirm' class="input w-full" value=(user ? user.passwordConfirm : ''))
 
         div(class="card-actions justify-end")

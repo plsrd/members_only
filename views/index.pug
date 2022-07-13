@@ -23,7 +23,7 @@ block content
           p(class='text-xl text-primary') #{message.title}
           div(class='text-sm my-3') 
             p !{message.content}
-          p(class='text-xs text-secondary') Posted by #{currentUser && currentUser.membership_status !== 'user' ? message.user.firstname : 'Anonymous'} #{message.age}
+          p(class='text-xs text-secondary') Posted by #{currentUser && currentUser.membership_status !== 'user' ? message.user ? message.user.firstname : 'deleted user' : 'Anonymous'} #{message.age}
           if messages.indexOf(message) !== messages.length - 1 
             div(class="divider my-5")
 

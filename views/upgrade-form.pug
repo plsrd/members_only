@@ -1,13 +1,18 @@
 extends layout 
 
 block content 
-  form(method='post' action='/upgrade')
-    label(for='password') Enter password
-    input(type='text' name='password') 
+  div(class="card w-96 bg-neutral shadow-xl mx-auto my-auto")
+    div(class="card-body")
+      h2(class="card-title  text-primary") Upgrade
+      
+      form(method='POST' action='/upgrade' class="form-control flex flex-col h-full")
+        
+        label(for='password' class="label") 
+          if errors && errors.some(error => error.param == 'password')
+            span(class='label-text text-primary') Valid email is required
+        label(class="input-group")
+          span(class='whitespace-nowrap') Enter Password
+          input(type='password' name='password' class="input w-full")
 
-    button(type="submit") Submit
-  
-  if errors 
-    ul 
-      for error in errors   
-        li= error.msg
+        div(class="card-actions justify-end mt-10")
+          button(type="submit" class="btn btn-secondary") Upgrade

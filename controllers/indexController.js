@@ -64,10 +64,25 @@ exports.signup_post = [
 
         user.save(err => {
           if (err) return next(err);
-          res.redirect('/');
+          next();
         });
       });
     }
+  },
+  passport.authenticate('local', {
+    failureRedirect: '/login-failure',
+  }),
+  (req, res, next) => {
+    User.findById(req.user._id).exec((err, user) => {
+      if (err) next(err);
+      Object.assign(user, { logins: [...user.logins, new Date()] });
+
+      user.save((err, updatedUser) => {
+        if (err) next(err);
+        console.log(updatedUser);
+        res.redirect('/');
+      });
+    });
   },
 ];
 
@@ -97,7 +112,6 @@ exports.login_post = [
 
       user.save((err, updatedUser) => {
         if (err) next(err);
-        console.log(updatedUser);
         res.redirect('/');
       });
     });
