@@ -194,7 +194,7 @@ exports.admin_get = (req, res, next) => {
 };
 
 exports.admin_post = [
-  body('password').trim().escape(),
+  body('password').trim().escape().isLength(1),
   (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, password) => {
       if (err) next(err);
