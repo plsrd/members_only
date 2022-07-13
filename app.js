@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 require('dotenv').config();
 const passport = require('./lib/passport');
+const compression = require('compression');
 
 const indexRouter = require('./routes/index');
 const messagesRouter = require('./routes/messages');
@@ -41,6 +42,8 @@ app.use(
     },
   })
 );
+
+app.use(compression());
 
 app.use(passport.initialize());
 app.use(passport.session());
