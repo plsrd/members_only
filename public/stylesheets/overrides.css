@@ -1,3 +1,22 @@
-pre {
-  color: var(bg-success);
+.ql-snow {
+  border: none !important;
+  background-color: hsl(var(--b1));
+}
+
+.ql-toolbar.ql-snow {
+  border-radius: var(--tab-radius) var(--tab-radius) 0 0;
+}
+
+.ql-container.ql-snow {
+  border-radius: 0 0 var(--tab-radius) var(--tab-radius);
+  height: 10rem;
+}
+
+.ql-snow .ql-stroke {
+  stroke: white;
+}
+
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+  fill: white;
 }

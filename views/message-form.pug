@@ -1,15 +1,19 @@
 extends layout 
 
 block content 
-  form(method='POST' action='/messages/create')
-    label(for='title') Title 
-    input(type='text', name='title') 
+  div(class="card bg-neutral shadow-xl mx-auto my-auto w-1/3")
+    div(class="card-body")
+      h2(class="card-title text-primary") New Message
+      
+      form(method='POST' action='/messages/create' class="form-control flex flex-col h-full")
+        label(for='title' class='label') Title
+        input(type='text' name='title' class="input w-full")
 
-    label(for='content') Content
-    textarea(data-quilljs name='content' type='hidden')
+        label(for='content' class='label') Content
+        textarea(data-quilljs name='content' class='bg-white' type='hidden')
 
-
-    button(type="submit") Submit
+        div(class="card-actions justify-end mt-10")
+          button(type="submit" class="btn btn-secondary") Submit
 
 
   script(src="https://cdn.quilljs.com/1.3.6/quill.js")
