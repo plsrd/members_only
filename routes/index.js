@@ -4,15 +4,7 @@ const Message = require('../models/message');
 
 const indexController = require('../controllers/indexController');
 
-router.get('/', function (req, res, next) {
-  Message.find()
-    .populate('user')
-    .exec((err, messages) => {
-      if (err) return next(err);
-
-      res.render('index', { title: 'Express', messages });
-    });
-});
+router.get('/', indexController.index_get);
 
 router.get('/signup', indexController.signup_get);
 

@@ -6,6 +6,15 @@ const User = require('../models/user');
 const Admin = require('../models/admin');
 const Message = require('../models/message');
 
+exports.index_get = (req, res, next) => {
+  Message.find()
+    .populate('user')
+    .exec((err, messages) => {
+      if (err) return next(err);
+      res.render('index', { title: 'Express', messages });
+    });
+};
+
 exports.signup_get = (req, res, next) => {
   res.render('signup-form');
 };
@@ -79,7 +88,6 @@ exports.signup_post = [
 
       user.save((err, updatedUser) => {
         if (err) next(err);
-        console.log(updatedUser);
         res.redirect('/');
       });
     });
