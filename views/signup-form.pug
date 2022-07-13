@@ -1,30 +1,45 @@
 extends layout
 
 block content 
-  div(class="card w-96 bg-neutral shadow-xl mx-auto my-auto")
+  div(class="card bg-neutral shadow-xl mx-auto my-auto")
     div(class="card-body")
       h2(class="card-title  text-primary mb-5") Sign Up
       form(method="POST" action='/signup' class='form-control space-y-1')
+
+        label(for='firstname' class="label") 
+          if errors && errors.some(error => error.param == 'firstname')
+            span(class='label-text text-primary') First name is required
+        label(class="input-group mb-5")
+          span(class='whitespace-nowrap') First name
+          input(type='text' name='firstname' class="input w-full" value=(user ? user.firstname : ''))
         
-        label(for='firstname' class='label text-sm') First Name
-        input(type='text' name='firstname' class="input input-bordered w-full max-w-xs" placeholder='First Name' value=(user ? user.firstname : ''))
+        label(for='lastname' class="label") 
+          if errors && errors.some(error => error.param == 'lastname')
+            span(class='label-text text-primary') Last name is required
+        label(class="input-group mb-5")
+          span(class='whitespace-nowrap') Last name
+          input(type='text' name='lastname' class="input w-full" value=(user ? user.lastname : ''))
 
-        label(for='lastname' class='label text-sm') Last Name
-        input(type='text' name='lastname' class="input input-bordered w-full max-w-xs" placeholder='Last Name' value=(user ? user.lastname : ''))
+        label(for='email' class="label") 
+          if errors && errors.some(error => error.param == 'email')
+            span(class='label-text text-primary') Valid email is required
+        label(class="input-group mb-5")
+          span(class='whitespace-nowrap') Email
+          input(type='email' name='email' class="input w-full" value=(user ? user.lastname : ''))
 
-        label(for='email' class='label text-sm') Email
-        input(type='email' name='email' class="input input-bordered w-full max-w-xs" placeholder='soandso@email.io' value=(user ? user.email : ''))
-
-        label(for='password' class='label text-sm') Password
-        input(type='password' name='password' class="input input-bordered w-full max-w-xs" placeholder='Password' value=(user ? user.password : ''))
-
-        label(for='passwordConfirm' class='label text-sm') Confirm Password
-        input(type='password' name='passwordConfirm' class="input input-bordered w-full max-w-xs" placeholder='Confirm Password')
+        label(for='password' class="label") 
+          if errors && errors.some(error => error.param == 'password')
+            span(class='label-text text-primary') Password is required
+        label(class="input-group mb-5")
+          span(class='whitespace-nowrap') Password
+          input(type='password' name='password' class="input w-full" value=(user ? user.password : ''))
+        
+        label(for='passwordConfirm' class="label") 
+          if errors && errors.some(error => error.param == 'passwordConfirm')
+            span(class='label-text text-primary') #{errors.find(error => error.param == 'passwordConfirm').msg }
+        label(class="input-group mb-5")
+          span(class='whitespace-nowrap') Password
+          input(type='password' name='passwordConfirm' class="input w-full" value=(user ? user.passwordConfirm : ''))
 
         div(class="card-actions justify-end")
           button(type="submit" class="btn btn-secondary mt-10") Sign Up
-
-      if errors
-        ul 
-          for error in errors 
-            li!= error.msg

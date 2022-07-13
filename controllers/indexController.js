@@ -32,6 +32,8 @@ exports.signup_post = [
   body('passwordConfirm')
     .escape()
     .trim()
+    .isLength(1)
+    .withMessage('Confirm your password')
     .custom(async (passwordConfirm, { req }) => {
       if (req.body.password !== passwordConfirm) {
         throw new Error('Passwords must match');
