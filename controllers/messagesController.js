@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator');
 const sanitizeHtml = require('sanitize-html');
+const async = require('async');
 
 const Message = require('../models/message');
 
@@ -30,10 +31,26 @@ exports.message_create_post = [
         user: req.user._id,
       });
 
-      message.save((err, newMessage) => {
+      message.save(err => {
         if (err) return next(err);
         res.redirect('/');
       });
     }
   },
 ];
+
+exports.message_delete_post = (req, res, next) => {
+  async.series(
+    {
+      deleteMessage: cb => Message.findByIdAndDelete(req.params.id).exec(cb),
+      messages: cb => Message.find().populate('user').exec(cb),
+    },
+    (err, { messages }) => {
+      if (err) next(err);
+      res.render('index', {
+        messages,
+        alert: `Message ${req.params.id} deleted!`,
+      });
+    }
+  );
+};
