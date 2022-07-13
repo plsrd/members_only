@@ -10,6 +10,7 @@ exports.message_create_get = (req, res, next) => {
 
 exports.message_create_post = [
   body('title', 'Title is required.').escape().trim().isLength(1),
+  body('content').isLength(1),
   (req, res, next) => {
     const { title, content } = req.body;
     const sanitizedContent = sanitizeHtml(content);
@@ -22,7 +23,7 @@ exports.message_create_post = [
     });
 
     if (!errors.isEmpty()) {
-      res.render('message-form', { message, errors });
+      res.render('message-form', { message, errors: errors.array() });
     } else {
       Object.assign(message, {
         created_at: new Date(),

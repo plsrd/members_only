@@ -7,9 +7,15 @@ block content
       
       form(method='POST' action='/messages/create' class="form-control flex flex-col h-full")
         label(for='title' class='label') Title
+        label(for='title') 
+          if errors && errors.some(error => error.param == 'title')
+            span(class='label-text text-primary') Title is required
         input(type='text' name='title' class="input w-full")
 
         label(for='content' class='label') Content
+        label(for='content') 
+          if errors && errors.some(error => error.param == 'content')
+            span(class='label-text text-primary') Content is required
         textarea(data-quilljs name='content' class='bg-white' type='hidden')
 
         div(class="card-actions justify-end mt-10")
