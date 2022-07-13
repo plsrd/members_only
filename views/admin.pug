@@ -1,8 +1,15 @@
 extends layout 
 
 block content
-  form(method='POST' action='/admin')
-    label(for='password') Enter new password 
-    input(type='password' name='password')
+  div(class="card w-96 bg-neutral shadow-xl mx-auto my-auto")
+    div(class="card-body")
+      h2(class="card-title  text-primary mb-5") Update Upgrade Password
+      
+      form(method='POST' action='/admin' class="form-control flex flex-col h-full")
+        
+        label(class="input-group")
+          span(class='whitespace-nowrap') New Password
+          input(type='password' name='password' class="input w-full")
 
-    button(type="submit") Update Password
+        div(class="card-actions justify-end mt-10")
+          button(type="submit" class="btn btn-secondary") Update

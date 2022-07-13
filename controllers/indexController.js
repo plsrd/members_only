@@ -169,10 +169,11 @@ exports.user_upgrade_post = [
             User.findByIdAndUpdate(req.user._id, {
               membership_status: 'member',
             }).exec(cb),
-          messages: cb => Message.find().exec(cb),
+          messages: cb => Message.find().populate('user').exec(cb),
         },
         (err, { updatedUser, messages }) => {
           if (err) return next(err);
+          res.locals.updatedUser = updatedUser;
           res.render('index', { messages, alert: 'Membership upgraded' });
         }
       );

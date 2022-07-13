@@ -1587,6 +1587,14 @@ html {
 .m-0 {
   margin: 0px;
 }
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
 .mx-24 {
   margin-left: 6rem;
   margin-right: 6rem;
@@ -1599,25 +1607,17 @@ html {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
 }
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
+.mt-10 {
+  margin-top: 2.5rem;
 }
 .mt-16 {
   margin-top: 4rem;
 }
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
 .mt-auto {
   margin-top: auto;
-}
-.mt-10 {
-  margin-top: 2.5rem;
 }
 .block {
   display: block;
@@ -1628,26 +1628,26 @@ html {
 .hidden {
   display: none;
 }
-.h-6 {
-  height: 1.5rem;
-}
 .h-full {
   height: 100%;
 }
+.h-6 {
+  height: 1.5rem;
+}
 .h-96 {
   height: 24rem;
-}
-.w-6 {
-  width: 1.5rem;
-}
-.w-80 {
-  width: 20rem;
 }
 .w-96 {
   width: 24rem;
 }
 .w-full {
   width: 100%;
+}
+.w-6 {
+  width: 1.5rem;
+}
+.w-80 {
+  width: 20rem;
 }
 .flex-shrink-0 {
   flex-shrink: 0;
@@ -1715,13 +1715,13 @@ html {
   --tw-text-opacity: 1;
   color: hsl(var(--bc) / var(--tw-text-opacity));
 }
-.shadow-lg {
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
 .shadow-xl {
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }

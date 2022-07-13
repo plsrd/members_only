@@ -35,7 +35,7 @@ html
           
           else
 
-            if currentUser.membership_status == 'user'
+            if !updatedUser && currentUser.membership_status == 'user'
               li
                 a(href='/upgrade') Upgrade Membership
 
